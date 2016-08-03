@@ -13,7 +13,7 @@ export default {
     proxy: {
       enabled: false,
       options: {
-        host: 'http://localhost:8000',
+        host: 'http://localhost/xiansda/2',
         match: /^\/api\/.*/
       }
     }

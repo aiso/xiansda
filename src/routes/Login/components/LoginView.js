@@ -1,48 +1,72 @@
 import React from 'react'
-import BtnBackSpaceIcon from '../../../components/Utils/BtnBackSpaceIcon'
+import Validation from 'react-validation'
+import validator from 'validator'
+import serialize from 'form-serialize';
+
+Validation.extendErrors({
+    isRequired: {
+        className: 'error',
+        message: '必输项',
+        rule: function(value) {
+            return Boolean(validator.trim(value));
+        }
+    },
+    isNotValidPassword: {
+        className: 'error',
+        message: '密码至少6位',
+        rule: function(value) {
+            // Validation provides ref to 'validator' module, so you don't need to install it separately
+            return validator.trim(value).length >= 6;
+        }
+    }
+});
+
 
 var LoginView = React.createClass({
-  getInitialState: function() {
-    return {uid: '', pwd: ''};
-  },
-  handleUidChange: function(e) {
-    this.setState({uid: e.target.value});
-  },
-  handlePwdChange: function(e) {
-    this.setState({pwd: e.target.value});
-  },
-  cleanUid : function(){
-  	this.setState({uid: ''});
-  },
-  cleanPwd : function(){
-  	this.setState({pwd: ''});
-  },
+    onSubmit: function(event) {
+        event.preventDefault();
+        var form = document.querySelector('#loginForm');
+        var str = serialize(form);
+        console.log(str);
+
+    },
   render: function() {
     return (
 		<div className='mobile-wrapper p20'>
-			<form name="loginForm" className='mobile-from'>
-	            <div>
-	                <label className="label-form">用户</label>
-	                <div className="w-clearfix block-input-combined">
-	                    <input className="w-input input-form" type='text' value={this.state.uid} onChange={this.handleUidChange} />
-	                    <div className="right-input-icon">
-	                    	<BtnBackSpaceIcon input={this.state.uid} onClean={this.cleanUid}/>
-                    	</div>
-	                </div>
-	            </div>
-	            <div>
-	                <label className="label-form">密码</label>
-	                <div className="w-clearfix block-input-combined">
-	                    <input className="w-input input-form" type='password' value={this.state.pwd} onChange={this.handlePwdChange} />
-	                    <div className="right-input-icon">
-	                    	<BtnBackSpaceIcon input={this.state.pwd} onClean={this.cleanPwd} />
-                    	</div>
-	                </div>
-	            </div>
-	            <div className="mt20">
-	            	<button className="action-button text ls" >登录</button>
-	            </div>
-			</form>
+			<div className='mobile-from'>
+				<Validation.Form onSubmit={this.onSubmit} id='loginForm'>
+	                <label className="label-form">用户名</label>
+					<div className='position-relative mb20'>
+	                    <Validation.Input
+	                        className='w-input input-form'
+	                        validations={[
+	                          {
+	                              rule: 'isRequired'
+	                          }
+	                        ]}
+	                        name='username'
+	                        type='text'/>
+					</div>
+
+
+                    <label className="label-form">密码</label>
+                    <div className='position-relative'>
+		                <Validation.Input
+		                    className='w-input input-form'
+		                    validations={[
+		                        {
+		                            rule: 'isRequired',
+		                        },
+	                          {
+	                              rule: 'isNotValidPassword'
+	                          }		                        
+		                    ]}
+		                    name='password'
+		                    type='password'/>
+                    </div>
+	                <Validation.Button className='action-button mt20' value='登 录'/>
+	            </Validation.Form>
+			</div>
 		</div>
     );
   }
