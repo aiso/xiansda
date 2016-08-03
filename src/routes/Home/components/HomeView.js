@@ -1,14 +1,9 @@
 import React from 'react'
-import DuckImage from '../assets/Duck.jpg'
-import classes from './HomeView.scss'
 
 export const HomeView = () => (
-  <div>
-    <h4>Welcome!</h4>
-    <img
-      alt='This is a duck, because Redux!'
-      className={classes.duck}
-      src={DuckImage} />
+  <div className='p20'>
+    <h3>鲜时达生活店</h3>
+    <p className='c-red'>我们致力于改善你的生活方式，放心的网购，贴心的服务，方便的生活。</p>
   </div>
 )
 
