@@ -33,9 +33,9 @@ var LoginView = React.createClass({
     onSubmit: function(event) {
         event.preventDefault();
         var form = document.querySelector('#loginForm');
-        xsd.sync.http.post('/api/user/login', formJson(form)).then(function(result){
-        	console.log(result);
-        	xsd.auth.loginUser(result.data.user);
+        xsd.sync.http.post('/api/user/login', formJson(form)).then(function(data){
+        	console.log(data);
+        	xsd.auth.loginUser(data.user);
         }).catch(function(err){
         	console.log(err);
         })

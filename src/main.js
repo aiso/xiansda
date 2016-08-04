@@ -10,8 +10,21 @@ import AppContainer from './containers/AppContainer'
 import AisoAuth from './store/AisoAuth'
 let aisoAuth = new AisoAuth();
 
+import {Base64} from 'js-base64'
 import AisoSync from './store/AisoSync'
-let aisoSync = new AisoSync();
+let aisoSync = new AisoSync({
+  interceptorRequest : function(config){
+    if(/\/api\//.test(config.url)){
+        let user = aisoAuth.getUser();
+        if(!!user){
+            config.headers['Authorization'] = Base64.encode(user.id + ":" + user.token);
+        }
+    }
+
+    return config;
+  },
+  interceptorResponse : response => response.data
+});
 
 window.xsd = {
   auth : aisoAuth,

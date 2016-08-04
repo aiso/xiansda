@@ -1,3 +1,4 @@
+import AisoStore from './AisoStore'
 
 export default class AisoAuth {
 
@@ -14,14 +15,14 @@ export default class AisoAuth {
 	}
 
     getUser(){
-        var user = localStorage.getItem(this.keyPref + this.keyUser);
+        var user = AisoStore.getItem(this.keyPref + this.keyUser);
 
         if(!!user && !!user.last_access && user.expire){
             var timeStr = user.last_access.split(/[\s:-]/),
                 loginTime = new Date(timeStr[0], timeStr[1]-1, timeStr[2], timeStr[3], timeStr[4], timeStr[5]),
                 currTime = new Date();
             if(currTime.getTime() - loginTime.getTime() > user.expire*1000){
-                localStorage.removeItem(this.keyPref + this.keyUser);
+                AisoStore.removeItem(this.keyPref + this.keyUser);
                 return null;
             }
         }
@@ -29,22 +30,22 @@ export default class AisoAuth {
     }
 
     lastUser(){
-        return localStorage.getItem(this.keyPref + this.keyLastLogin);
+        return AisoStore.getItem(this.keyPref + this.keyLastLogin);
     }
 
     loginUser(user){
-        localStorage.setItem(this.keyPref + this.keyUser, user);
-        localStorage.setItem(this.keyPref + this.keyLastLogin, {id:user.id,uid:user.uid,role:user.role,last_login:user.last_login});
+        AisoStore.setItem(this.keyPref + this.keyUser, user);
+        AisoStore.setItem(this.keyPref + this.keyLastLogin, {id:user.id,uid:user.uid,role:user.role,last_login:user.last_login});
     }
 
     logout(data){
-        localStorage.removeItem(this.keyPref + this.keyUser);
+        AisoStore.removeItem(this.keyPref + this.keyUser);
     }
 
     updateUser(user){
         var curr = this.getUser();
         if(!!curr && user.id == curr.id){
-            localStorage.setItem(this.keyPref + this.keyUser, user);
+            AisoStore.setItem(this.keyPref + this.keyUser, user);
         }
     }
 }
