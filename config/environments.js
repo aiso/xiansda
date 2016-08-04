@@ -11,10 +11,12 @@ export default {
   development: (config) => ({
     compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
     proxy: {
-      enabled: false,
+      enabled: true,
       options: {
-        host: 'http://localhost/xiansda/2',
-        match: /^\/api\/.*/
+        //host: 'http://3.xiansda.applinzi.com',
+        host: 'http://localhost',
+        match: /\/api\/.*/,
+        map: function(path) { return '/xiansda/1' + path; }
       }
     }
   }),

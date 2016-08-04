@@ -1,7 +1,9 @@
 import React from 'react'
 import Validation from 'react-validation'
 import validator from 'validator'
-import serialize from 'form-serialize';
+import serialize from 'form-serialize'
+import {formJson} from '../../../components/utils'
+
 
 Validation.extendErrors({
     isRequired: {
@@ -23,11 +25,20 @@ Validation.extendErrors({
 
 
 var LoginView = React.createClass({
+	componentDidMount:function(){
+	},
+	componentWillUnmount: function() {
+
+	},
     onSubmit: function(event) {
         event.preventDefault();
         var form = document.querySelector('#loginForm');
-        var str = serialize(form);
-        console.log(str);
+        xsd.sync.http.post('/api/user/login', formJson(form)).then(function(result){
+        	console.log(result);
+        	xsd.auth.loginUser(result.data.user);
+        }).catch(function(err){
+        	console.log(err);
+        })
 
     },
   render: function() {
@@ -44,7 +55,7 @@ var LoginView = React.createClass({
 	                              rule: 'isRequired'
 	                          }
 	                        ]}
-	                        name='username'
+	                        name='uid'
 	                        type='text'/>
 					</div>
 
@@ -61,7 +72,7 @@ var LoginView = React.createClass({
 	                              rule: 'isNotValidPassword'
 	                          }		                        
 		                    ]}
-		                    name='password'
+		                    name='pwd'
 		                    type='password'/>
                     </div>
 	                <Validation.Button className='action-button mt20' value='登 录'/>

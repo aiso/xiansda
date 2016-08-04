@@ -6,6 +6,19 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 
+
+import AisoAuth from './store/AisoAuth'
+let aisoAuth = new AisoAuth();
+
+import AisoSync from './store/AisoSync'
+let aisoSync = new AisoSync();
+
+window.xsd = {
+  auth : aisoAuth,
+  sync : aisoSync
+}
+
+
 // ========================================================
 // Browser History Setup
 // ========================================================
