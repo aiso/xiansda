@@ -5,7 +5,7 @@ const AisoStore = {
 	},
 	getItem:function(k){
 		let v = localStorage.getItem(k);
-		if(typeof(v) == 'string')
+		if(typeof(v) == 'string' && /^{.*}$/.test(v))
 			return JSON.parse(v);
 		else
 			return null;
