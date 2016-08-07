@@ -1,7 +1,6 @@
 import React from 'react'
-import Validation from 'react-validation'
+import Validation, {Form, Input, Button} from 'react-validation'
 import validator from 'validator'
-import serialize from 'form-serialize'
 import {formJson} from '../../../components/utils'
 
 
@@ -34,7 +33,6 @@ var LoginView = React.createClass({
         event.preventDefault();
         var form = document.querySelector('#loginForm');
         xsd.sync.http.post('/api/user/login', formJson(form)).then(function(data){
-        	console.log(data);
         	xsd.auth.loginUser(data.user);
         }).catch(function(err){
         	console.log(err);
@@ -45,10 +43,10 @@ var LoginView = React.createClass({
     return (
 		<div className='mobile-wrapper p20'>
 			<div className='mobile-from'>
-				<Validation.Form onSubmit={this.onSubmit} id='loginForm'>
+				<Form onSubmit={this.onSubmit} id='loginForm'>
 	                <label className="label-form">用户名</label>
 					<div className='position-relative mb20'>
-	                    <Validation.Input
+	                    <Input
 	                        className='w-input input-form'
 	                        validations={[
 	                          {
@@ -62,7 +60,7 @@ var LoginView = React.createClass({
 
                     <label className="label-form">密码</label>
                     <div className='position-relative'>
-		                <Validation.Input
+		                <Input
 		                    className='w-input input-form'
 		                    validations={[
 		                        {
@@ -75,8 +73,8 @@ var LoginView = React.createClass({
 		                    name='pwd'
 		                    type='password'/>
                     </div>
-	                <Validation.Button className='action-button mt20' value='登 录'/>
-	            </Validation.Form>
+	                <Button className='action-button mt20' value='登 录'/>
+	            </Form>
 			</div>
 		</div>
     );

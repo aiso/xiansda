@@ -1,0 +1,103 @@
+:global {
+
+  .fade-in-enter {
+    opacity: 0.01;
+  }
+
+  .fade-in-enter.fade-in-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
+  .fade-in-leave {
+    opacity: 1;
+  }
+
+  .fade-in-leave.fade-in-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+
+
+
+  .bottom-in-enter {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+
+  .bottom-in-enter.bottom-in-enter-active {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+    transition: 500ms all ease;
+  }
+
+  .bottom-in-leave {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  .bottom-in-leave.bottom-in-leave-active {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    transform: translateY(100%);
+    transition: 300ms all ease;
+  }
+
+  .top-in-enter {
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+
+  .top-in-enter.top-in-enter-active {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+    transition: 500ms all ease;
+  }
+
+  .top-in-leave {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  .top-in-leave.top-in-leave-active {
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    transform: translateY(-100%);
+    transition: 300ms all ease;
+  }
+
+
+
+  .right-in-enter {
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  .right-in-enter.right-in-enter-active {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+    transition: 500ms all ease;
+  }
+
+  .right-in-leave {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  .right-in-leave.right-in-leave-active {
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+    transition: 300ms all ease;
+  }
+
+}

@@ -1,16 +1,36 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import Alert from '../../../components/modal/Alert'
-
+import Confirm from '../../../components/modal/Confirm'
+import Toast from '../../../components/modal/Toast'
+import Frame from '../../../components/modal/Frame'
+import Login from '../../Login/components/Login'
 
 var Control = React.createClass({
     render: function() {
         return <div>{ this.props.children }</div>;
     }
 });
+
+var SampleComponent = React.createClass({
+    componentDidLeave : () => {
+        console.log('aaaaaaaa');
+    },
+    render: function() {
+        return <div className='mobile-wrapper frame p20'>
+            <h3>鲜时达生活店11111111111111222</h3>
+            <a onClick={this.props.close}>close</a>
+          </div>
+    }
+});
+
+
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { routerActions } from 'react-router-redux'
 
 var TestView = React.createClass({
 	  getInitialState: function() {
@@ -35,12 +55,22 @@ var TestView = React.createClass({
     	xsd.sync.http.get('/api/test').then((data)=>{console.log(data)});
     },
     alert : function(){
-    	Alert.show('test');
-    	/*
-    	wrapper = document.body.appendChild(document.createElement('div'));
-    	let props = {message: 'test message', wrapper:wrapper}
-    	ReactDOM.render(<Alert {...props}></Alert>, wrapper);
-    	*/
+    	Alert.show('悉尼出现美食新地标 热度远超唐人街.');
+    },
+    confirm : function(){
+        Confirm.show('测试CONFIRM').then(function(){
+            console.log('confirm')
+        }).catch(()=>{console.log('cancel')})
+    },
+    toast : function(){
+        Toast.show('悉尼出现美食新地标 热度远超唐人街.');
+    },
+    frame : function(){
+        Frame.show(SampleComponent);
+    },
+    navigate : function(){
+        //this.props.push('login')
+        this.props.push('login')
     },
     unmountComponent:function(){
     	//ReactDOM.unmountComponentAtNode(wrapper);
@@ -67,10 +97,29 @@ var TestView = React.createClass({
 			{' · '}
 			<a onClick={this.alert}>alert</a>
 			{' · '}
+            <a onClick={this.confirm}>confirm</a>
+            {' · '}
+            <a onClick={this.toast}>toast</a>
+            {' · '}
+            <a onClick={this.frame}>frame</a>
+            {' · '}
+            <a onClick={this.navigate}>navigate</a>
+            {' · '}
 			<a onClick={this.unmountComponent}>unmountComponent</a>
+
 		</div>
     );
   }
 });
 
-export default TestView
+//export default TestView
+
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    push: routerActions.push,
+  }, dispatch)
+}
+
+
+export default connect(null, mapDispatchToProps)(TestView)
