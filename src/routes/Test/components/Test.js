@@ -27,12 +27,17 @@ var SampleComponent = React.createClass({
 });
 
 
-
+/*
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { routerActions } from 'react-router-redux'
+*/
+import { routerActions } from 'react-router-redux'
 
 var TestView = React.createClass({
+contextTypes: {
+    store: React.PropTypes.object
+  },
 	  getInitialState: function() {
 	    return {items: ['hello', 'world', 'click', 'me']};
 	  },
@@ -70,12 +75,13 @@ var TestView = React.createClass({
     },
     navigate : function(){
         //this.props.push('login')
-        this.props.push('login')
+        this.context.store.dispatch(routerActions.push('login'))
     },
     unmountComponent:function(){
     	//ReactDOM.unmountComponentAtNode(wrapper);
     },
   render: function() {
+
     var items = this.state.items.map(function(item, i) {
       return (
         <div key={item} onClick={this.handleRemove.bind(this, i)}>
@@ -112,8 +118,9 @@ var TestView = React.createClass({
   }
 });
 
-//export default TestView
+export default TestView
 
+/*
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -123,3 +130,4 @@ function mapDispatchToProps(dispatch) {
 
 
 export default connect(null, mapDispatchToProps)(TestView)
+*/
